@@ -1,4 +1,4 @@
-module github.com/eperezp2/CloudNativeCourse
+module github.com/eperezp2/CloudNativeCourse/labs6
 
 go 1.19
 
