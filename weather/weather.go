@@ -12,11 +12,6 @@ import (
 
 type Temperature float64
 
-// Added new fields
-type Pressure int64
-type Humidity int64
-type WindSpeed float64
-
 func (t Temperature) Fahrenheit() float64 {
 	return (float64(t)-273.15)*(9.0/5.0) + 32.0
 }
@@ -24,25 +19,14 @@ func (t Temperature) Fahrenheit() float64 {
 type Conditions struct {
 	Summary     string
 	Temperature Temperature
-
-	Pressure  Pressure
-	Humidity  Humidity
-	WindSpeed WindSpeed
 }
 
 type OWMResponse struct {
 	Weather []struct {
 		Main string
-		Wind string // Add 'Wind' key to access respective response fields
 	}
 	Main struct {
-		Temp     Temperature
-		Humidity Humidity // Access humidity field from main key
-		Pressure Pressure // Access pressure field from main key
-	}
-
-	Wind struct { // Access 'wind' key for speed field
-		Speed WindSpeed
+		Temp Temperature
 	}
 }
 
@@ -104,9 +88,6 @@ func ParseResponse(data []byte) (Conditions, error) {
 	conditions := Conditions{
 		Summary:     resp.Weather[0].Main,
 		Temperature: resp.Main.Temp,
-		Humidity:    resp.Main.Humidity,
-		Pressure:    resp.Main.Pressure,
-		WindSpeed:   resp.Wind.Speed,
 	}
 	return conditions, nil
 }
@@ -136,6 +117,6 @@ func RunCLI() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("%s %.1fº, Pressure: %d hPa, Humidity: %d%%, Wind Speed: %.2f m/s\n", conditions.Summary, conditions.Temperature.Fahrenheit(), conditions.Pressure, conditions.Humidity, conditions.WindSpeed)
+	fmt.Printf("%s %.1fº\n", conditions.Summary, conditions.Temperature.Fahrenheit())
 
 }

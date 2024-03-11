@@ -1,3 +1,0 @@
-# CloudNativeCourse
-# Team 4?
-
