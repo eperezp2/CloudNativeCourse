@@ -1,7 +1,7 @@
 package main
 
 import (
-	"weather"
+	"github.com/eperezp2/CloudNativeCourse/lab6/weather"
 )
 
 func main() {

@@ -20,6 +20,10 @@ func TestParseResponse(t *testing.T) {
 	want := Conditions{
 		Summary:     "Clouds",
 		Temperature: 281.33,
+		// Added new test conditions
+		Pressure:  1000,
+		Humidity:  90,
+		WindSpeed: 3.09,
 	}
 	got, err := ParseResponse(data)
 	if err != nil {
@@ -94,7 +98,7 @@ func TestSimpleHTTP(t *testing.T) {
 func TestGetWeather(t *testing.T) {
 	t.Parallel()
 	ts := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		f, err := os.Open("testdata/weather_data.json")
+		f, err := os.Open("testdata/weather_data.json") // Tested with weather_invalid_data, Error thrown
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -108,6 +112,10 @@ func TestGetWeather(t *testing.T) {
 	want := Conditions{
 		Summary:     "Clouds",
 		Temperature: 281.33,
+		// Added new test conditions
+		Pressure:  1000,
+		Humidity:  90,
+		WindSpeed: 3.09,
 	}
 	got, err := c.GetWeather("Paris,FR")
 	if err != nil {
