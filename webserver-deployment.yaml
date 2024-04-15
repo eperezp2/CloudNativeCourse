@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mywebserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mywebserver
+  template:
+    metadata:
+      labels:
+        app: mywebserver
+    spec:
+      containers:
+      - name: mywebserver
+        image: 10.0.2.15:30007/mywebserver:v1
+        ports:
+        - containerPort: 80
+
